@@ -1,14 +1,20 @@
 import Head from "next/head";
 import Image from "next/image";
-// import styles from "../styles/Home.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { supabase } from "../util/supabase";
 
 export default function Home() {
-  const iconStyle: React.CSSProperties = { padding: 10 };
+  const iconStyle: React.CSSProperties = { padding: 9 };
   // 質問入力欄
   const [inputQuestion, setInputQuestion] = useState("");
+  // NOW
+  const [nowQuestion, setNowQuestion] = useState(
+    "んんんんｎおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおお"
+  );
   // WAIT一覧
   const [waitQuestions, setWaitQuestions] = useState([
     "あああああああああああああああああああああ",
@@ -20,14 +26,74 @@ export default function Home() {
     "あああああああええええええええいいいいいいいいいいいいいいいいｄｄｄ",
     "eeeee",
   ]);
+  // DBから取得したデータ
+  const [questions, setQuestions] = useState([]);
 
-  const onChangeQuestion = (e) => {
+  // 質問入力欄
+  const onChangeQuestion = (e: any) => {
     setInputQuestion(e.target.value);
   };
+  // 投稿ボタン
   const onClickEntry = () => {
     const newWaitQuestions = [inputQuestion, ...waitQuestions];
     setWaitQuestions(newWaitQuestions);
     setInputQuestion("");
+  };
+  // NOWボタン
+  const onClickNow = () => {
+    if (nowQuestion) {
+      // DONE一覧に追加
+      const newDoneQuestions = [...doneQuestions, nowQuestion];
+      setDoneQuestions(newDoneQuestions);
+      setNowQuestion("");
+    }
+  };
+  // WAITボタン
+  const onClickWait = (index: number) => {
+    const newWaitQuestions = [...waitQuestions];
+    // 押された要素をWAIT一覧から削除
+    newWaitQuestions.splice(index, 1);
+    if (nowQuestion) {
+      // 現在のNOW要素をDONE一覧に追加
+      const newDoneQuestions = [...doneQuestions, nowQuestion];
+      setDoneQuestions(newDoneQuestions);
+    }
+    setWaitQuestions(newWaitQuestions);
+    setNowQuestion(waitQuestions[index]);
+  };
+  // DONEボタン（WAITへの戻し用）
+  const onClickDone = (index: number) => {
+    const newDoneQuestions = [...doneQuestions];
+    // 押された要素をDONE一覧から削除
+    newDoneQuestions.splice(index, 1);
+    // 押された要素をWAIT一覧に追加
+    const newWaitQuestions = [...waitQuestions, doneQuestions[index]];
+    setDoneQuestions(newDoneQuestions);
+    setWaitQuestions(newWaitQuestions);
+  };
+  // WAITのDELボタン
+  const onClickWaitDel = (index: number) => {
+    const newWaitQuestions = [...waitQuestions];
+    // 押された要素をWAIT一覧から削除
+    newWaitQuestions.splice(index, 1);
+    setWaitQuestions(newWaitQuestions);
+  };
+  // DONEのDELボタン
+  const onClickDoneDel = (index: number) => {
+    const newDoneQuestions = [...doneQuestions];
+    // 押された要素をDONE一覧から削除
+    newDoneQuestions.splice(index, 1);
+    setDoneQuestions(newDoneQuestions);
+  };
+
+  // ★テストDB接続用
+  const onClickTest = async () => {
+    let { data: questions, error } = await supabase
+      .from("questions")
+      .select(`"id","question","status-kbn","good-count","theme-kbn"`);
+    // .eq("status-kbn", "wait");
+    console.log(questions);
+    setQuestions(questions);
   };
 
   return (
@@ -40,6 +106,17 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.svg" />
       </Head>
+      {/* ★★★★★★★★ */}
+      <button className="bg-yellow-500" onClick={onClickTest}>
+        データ取得
+      </button>
+      <ul>
+        {Object.keys(questions).map((key) => (
+          <li key={key}>
+            {questions[key].question},{questions[key]["status-kbn"]}
+          </li>
+        ))}
+      </ul>
       <main className="min-h-screen">
         {/* 投稿 */}
         <div className="items-end flex">
@@ -63,18 +140,13 @@ export default function Home() {
         {/* NOW */}
         <div className="bg-yellow-50 pb-1 rounded-3xl mx-1">
           <div className="my-2 mx-2 flex">
-            <button className="px-6 py-2 my-3 mr-3 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-yellow-200 hover:bg-yellow-300 text-yellow-900 focus:outline-none">
+            <button
+              className="px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-yellow-200 hover:bg-yellow-300 text-yellow-900 focus:outline-none"
+              onClick={onClickNow}
+            >
               NOW
             </button>
-            <p className="border-b my-auto">
-              cccccccccええええええええええええええあああああああああああああいいいいいいいいいいい。あとは〇〇とか××とか教えてください。あああああ。
-            </p>
-            {/* <div style={{ textAlign: "center", padding: 50 }}>
-              <FontAwesomeIcon style={iconStyle} icon={faTrashAlt} />
-            </div> */}
-            <div className="p-3 cursor-pointer ">
-              <FontAwesomeIcon style={iconStyle} icon={faTrashAlt} />
-            </div>
+            <p className="border-b my-auto">{nowQuestion}</p>
           </div>
         </div>
 
@@ -86,81 +158,53 @@ export default function Home() {
           {waitQuestions.map((waitQuestion, index) => {
             return (
               <div key={index} className="my-2 mx-2 flex">
-                <button className="px-6 py-2 my-3 mr-3 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-indigo-200 hover:bg-indigo-300 text-indigo-900 focus:outline-none">
+                <button
+                  className="px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-indigo-200 hover:bg-indigo-300 text-indigo-900 focus:outline-none"
+                  onClick={() => onClickWait(index)}
+                >
                   WAIT
                 </button>
-                <p className="border-b my-auto  ">{waitQuestion}</p>
+                {/* <div
+                  className="my-3 pr-3 cursor-pointer"
+                  onClick={() => onClickWaitHeartRegular(index)}
+                >
+                  <FontAwesomeIcon style={iconStyle} icon={faHeartRegular} />
+                </div> */}
+                <p className="border-b my-auto ">{waitQuestion}</p>
+                <div
+                  className="p-3 cursor-pointer ml-auto"
+                  onClick={() => onClickWaitDel(index)}
+                >
+                  <FontAwesomeIcon style={iconStyle} icon={faTrashAlt} />
+                </div>
               </div>
             );
           })}
-          {/* WAIT１ */}
-          {/* <div className="my-2 mx-2 flex">
-            <button className="px-6 py-2 my-3 mr-3 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-indigo-200 hover:bg-indigo-300 text-indigo-900 focus:outline-none">
-              WAIT
-            </button>
-            <p className="border-b my-auto  ">
-              ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
-            </p>
-          </div> */}
-          {/* WAIT２ */}
-          {/* <div className="my-2 mx-2 flex">
-            <button className="px-6 py-2 my-3 mr-3 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-indigo-200 hover:bg-indigo-300 text-indigo-900 focus:outline-none">
-              WAIT
-            </button>
-            <p className="border-b my-auto">ああああああああああああ</p>
-          </div> */}
-          {/* WAIT３ */}
-          {/* <div className="my-2 mx-2 flex">
-            <button className="px-6 py-2 my-3 mr-3 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-indigo-200 hover:bg-indigo-300 text-indigo-900 focus:outline-none">
-              WAIT
-            </button>
-            <p className="border-b my-auto">
-              iiiiiいいいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううううううううううううううううううえええええええええええええええあ
-            </p>
-          </div> */}
         </div>
 
         {/* DONE */}
-        {/* WAIT */}
         <div className="bg-gray-50 py-1 rounded-3xl m-1">
           {doneQuestions.map((doneQuestion, index) => {
             return (
               <div key={index} className="my-2 mx-2 flex">
-                <button className="px-6 py-2 my-3 mr-3 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none">
+                <button
+                  className="px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none"
+                  onClick={() => onClickDone(index)}
+                >
                   DONE
                 </button>
                 <p className="border-b my-auto">{doneQuestion}</p>
+                <div
+                  className="p-3 cursor-pointer ml-auto"
+                  onClick={() => onClickDoneDel(index)}
+                >
+                  <FontAwesomeIcon style={iconStyle} icon={faTrashAlt} />
+                </div>
               </div>
             );
           })}
         </div>
-        {/* DONE */}
-        {/* <div className="bg-gray-50 py-1 rounded-3xl m-1">
-          <div className="my-2 mx-2 flex">
-            <button className="px-6 py-2 my-3 mr-3 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none">
-              DONE
-            </button>
-            <p className="border-b my-auto">
-              ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
-            </p>
-          </div>
-          <div className="my-2 mx-2 flex">
-            <button className="px-6 py-2 my-3 mr-3 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none">
-              DONE
-            </button>
-            <p className="border-b my-auto">ああああああああああああ</p>
-          </div>
-          <div className="my-2 mx-2 flex">
-            <button className="px-6 py-2 my-3 mr-3 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none">
-              DONE
-            </button>
-            <p className="border-b my-auto">
-              iiiiiいいいいいいいいいいいいいいいいいいいいいいいいいううううううううううううううううううううううううううううううううううううううえええええええええええええええあ
-            </p>
-          </div>
-        </div> */}
       </main>
-
       <footer>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"

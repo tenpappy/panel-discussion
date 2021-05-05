@@ -12,9 +12,7 @@ export default function Home() {
   // 質問入力欄
   const [inputQuestion, setInputQuestion] = useState("");
   // NOW
-  const [nowQuestion, setNowQuestion] = useState(
-    "んんんんｎおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおお"
-  );
+  const [nowQuestion, setNowQuestion] = useState("");
   // WAIT一覧
   const [waitQuestions, setWaitQuestions] = useState([
     "あああああああああああああああああああああ",
@@ -49,7 +47,7 @@ export default function Home() {
     }
   };
   // WAITボタン
-  const onClickWait = (index: number) => {
+  const onClickWait = (index) => {
     const newWaitQuestions = [...waitQuestions];
     // 押された要素をWAIT一覧から削除
     newWaitQuestions.splice(index, 1);
@@ -62,7 +60,7 @@ export default function Home() {
     setNowQuestion(waitQuestions[index]);
   };
   // DONEボタン（WAITへの戻し用）
-  const onClickDone = (index: number) => {
+  const onClickDone = (index) => {
     const newDoneQuestions = [...doneQuestions];
     // 押された要素をDONE一覧から削除
     newDoneQuestions.splice(index, 1);
@@ -72,14 +70,14 @@ export default function Home() {
     setWaitQuestions(newWaitQuestions);
   };
   // WAITのDELボタン
-  const onClickWaitDel = (index: number) => {
+  const onClickWaitDel = (index) => {
     const newWaitQuestions = [...waitQuestions];
     // 押された要素をWAIT一覧から削除
     newWaitQuestions.splice(index, 1);
     setWaitQuestions(newWaitQuestions);
   };
   // DONEのDELボタン
-  const onClickDoneDel = (index: number) => {
+  const onClickDoneDel = (index) => {
     const newDoneQuestions = [...doneQuestions];
     // 押された要素をDONE一覧から削除
     newDoneQuestions.splice(index, 1);
@@ -146,7 +144,14 @@ export default function Home() {
             >
               NOW
             </button>
-            <p className="border-b my-auto">{nowQuestion}</p>
+            {Object.keys(questions).map(
+              (index) =>
+                questions[index]["status-kbn"] === "now" && (
+                  <p key={index} className="border-b my-auto">
+                    {questions[index].question}
+                  </p>
+                )
+            )}
           </div>
         </div>
 
@@ -154,7 +159,76 @@ export default function Home() {
         <div className="border-dashed border-t-4 my-2 mx-3"></div>
 
         {/* WAIT */}
-        <div className="bg-indigo-50 py-1 rounded-3xl m-1">
+        {Object.keys(questions).map(
+          (index) =>
+            questions[index]["status-kbn"] === "wait" && (
+              <div className="bg-indigo-50 py-1 rounded-3xl m-1">
+                <div key={index} className="my-2 mx-2 flex">
+                  <button
+                    className="px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-indigo-200 hover:bg-indigo-300 text-indigo-900 focus:outline-none"
+                    onClick={() => onClickWait(index)}
+                  >
+                    WAIT
+                  </button>
+                  <p className="border-b my-auto ">
+                    {questions[index].question}
+                  </p>
+                  <div
+                    className="p-3 cursor-pointer ml-auto"
+                    onClick={() => onClickWaitDel(index)}
+                  >
+                    <FontAwesomeIcon style={iconStyle} icon={faTrashAlt} />
+                  </div>
+                </div>
+              </div>
+            )
+        )}
+
+        {/* DONE */}
+        {Object.keys(questions).map(
+          (index) =>
+            questions[index]["status-kbn"] === "done" && (
+              <div className="bg-gray-50 py-1 rounded-3xl m-1">
+                <div key={index} className="my-2 mx-2 flex">
+                  <button
+                    className="px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none"
+                    onClick={() => onClickDone(index)}
+                  >
+                    DONE
+                  </button>
+                  <p className="border-b my-auto">
+                    {questions[index].question}
+                  </p>
+                  <div
+                    className="p-3 cursor-pointer ml-auto"
+                    onClick={() => onClickDoneDel(index)}
+                  >
+                    <FontAwesomeIcon style={iconStyle} icon={faTrashAlt} />
+                  </div>
+                </div>
+              </div>
+            )
+        )}
+
+        {/* ★★バックアップとして一応残しておく★★ */}
+        {/* NOW */}
+        {/* <div className="bg-yellow-50 pb-1 rounded-3xl mx-1">
+          <div className="my-2 mx-2 flex">
+            <button
+              className="px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-yellow-200 hover:bg-yellow-300 text-yellow-900 focus:outline-none"
+              onClick={onClickNow}
+            >
+              NOW
+            </button>
+            <p className="border-b my-auto">{nowQuestion}</p>
+          </div>
+        </div> */}
+
+        {/* 点線 */}
+        {/* <div className="border-dashed border-t-4 my-2 mx-3"></div> */}
+
+        {/* WAIT */}
+        {/* <div className="bg-indigo-50 py-1 rounded-3xl m-1">
           {waitQuestions.map((waitQuestion, index) => {
             return (
               <div key={index} className="my-2 mx-2 flex">
@@ -164,12 +238,6 @@ export default function Home() {
                 >
                   WAIT
                 </button>
-                {/* <div
-                  className="my-3 pr-3 cursor-pointer"
-                  onClick={() => onClickWaitHeartRegular(index)}
-                >
-                  <FontAwesomeIcon style={iconStyle} icon={faHeartRegular} />
-                </div> */}
                 <p className="border-b my-auto ">{waitQuestion}</p>
                 <div
                   className="p-3 cursor-pointer ml-auto"
@@ -180,10 +248,10 @@ export default function Home() {
               </div>
             );
           })}
-        </div>
+        </div> */}
 
         {/* DONE */}
-        <div className="bg-gray-50 py-1 rounded-3xl m-1">
+        {/* <div className="bg-gray-50 py-1 rounded-3xl m-1">
           {doneQuestions.map((doneQuestion, index) => {
             return (
               <div key={index} className="my-2 mx-2 flex">
@@ -203,7 +271,7 @@ export default function Home() {
               </div>
             );
           })}
-        </div>
+        </div> */}
       </main>
       <footer>
         <a

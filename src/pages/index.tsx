@@ -11,12 +11,6 @@ export default function Home() {
   const iconStyle: React.CSSProperties = { padding: 9 };
   // 質問入力欄
   const [inputQuestion, setInputQuestion] = useState("");
-  // NOW
-  const [nowQuestion, setNowQuestion] = useState("");
-  // WAIT一覧
-  const [waitQuestions, setWaitQuestions] = useState([""]);
-  // DONE一覧
-  const [doneQuestions, setDoneQuestions] = useState([""]);
   // DBから取得したデータ
   const [questions, setQuestions] = useState([]);
 
@@ -26,24 +20,28 @@ export default function Home() {
   };
   // 投稿ボタン
   const onClickEntry = async () => {
-    // insert）
-    const { error: insertError } = await supabase
-      .from("questions")
-      .insert([{ question: inputQuestion, "status-kbn": "wait" }]);
-    if (insertError) {
-      alert("投稿処理に失敗しました");
-    } else {
-      setInputQuestion("");
-    }
+    if (inputQuestion) {
+      // insert
+      const { error: insertError } = await supabase
+        .from("questions")
+        .insert([{ question: inputQuestion, "status-kbn": "wait" }]);
+      if (insertError) {
+        alert("投稿処理に失敗しました");
+      } else {
+        setInputQuestion("");
+      }
 
-    // select（データ再取得）
-    const { data: questions, error: selectError } = await supabase
-      .from("questions")
-      .select(`"id","question","status-kbn","good-count","theme-kbn"`);
-    if (selectError) {
-      alert("データ取得処理に失敗しました");
+      // select（データ再取得）
+      const { data: questions, error: selectError } = await supabase
+        .from("questions")
+        .select(`"id","question","status-kbn","good-count","theme-kbn"`);
+      if (selectError) {
+        alert("データ取得処理に失敗しました");
+      } else {
+        setQuestions(questions);
+      }
     } else {
-      setQuestions(questions);
+      alert("投稿内容を入力してください");
     }
   };
   // NOWボタン
@@ -184,6 +182,11 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.svg" />
       </Head>
+      <header>
+        <p className="h-11 mb-2  p-2 bg-gray-700  text-white">
+          Panel Discussion　しまぶー×じゃけぇ
+        </p>
+      </header>
       <main className="min-h-screen">
         {/* 投稿 */}
         <div className="md:flex items-end">
@@ -278,81 +281,11 @@ export default function Home() {
               </div>
             )
         )}
-
-        {/* ★★バックアップとして一応残しておく★★ */}
-        {/* NOW */}
-        {/* <div className="bg-yellow-50 pb-1 rounded-3xl mx-1">
-          <div className="my-2 mx-2 flex">
-            <button
-              className="px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-yellow-200 hover:bg-yellow-300 text-yellow-900 focus:outline-none"
-              onClick={onClickNow}
-            >
-              NOW
-            </button>
-            <p className="border-b my-auto">{nowQuestion}</p>
-          </div>
-        </div> */}
-
-        {/* 点線 */}
-        {/* <div className="border-dashed border-t-4 my-2 mx-3"></div> */}
-
-        {/* WAIT */}
-        {/* <div className="bg-indigo-50 py-1 rounded-3xl m-1">
-          {waitQuestions.map((waitQuestion, index) => {
-            return (
-              <div key={index} className="my-2 mx-2 flex">
-                <button
-                  className="px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-indigo-200 hover:bg-indigo-300 text-indigo-900 focus:outline-none"
-                  onClick={() => onClickWait(index)}
-                >
-                  WAIT
-                </button>
-                <p className="border-b my-auto ">{waitQuestion}</p>
-                <div
-                  className="p-3 cursor-pointer ml-auto"
-                  onClick={() => onClickWaitDel(index)}
-                >
-                  <FontAwesomeIcon style={iconStyle} icon={faTrashAlt} />
-                </div>
-              </div>
-            );
-          })}
-        </div> */}
-
-        {/* DONE */}
-        {/* <div className="bg-gray-50 py-1 rounded-3xl m-1">
-          {doneQuestions.map((doneQuestion, index) => {
-            return (
-              <div key={index} className="my-2 mx-2 flex">
-                <button
-                  className="px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none"
-                  onClick={() => onClickDone(index)}
-                >
-                  DONE
-                </button>
-                <p className="border-b my-auto">{doneQuestion}</p>
-                <div
-                  className="p-3 cursor-pointer ml-auto"
-                  onClick={() => onClickDoneDel(index)}
-                >
-                  <FontAwesomeIcon style={iconStyle} icon={faTrashAlt} />
-                </div>
-              </div>
-            );
-          })}
-        </div> */}
       </main>
       <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <span className="h-4 ml-2">
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
+        <p className="h-11 mt-2  p-2 bg-gray-700  text-white">
+          © 2021 てんぱぱ
+        </p>
       </footer>
     </div>
   );

@@ -14,16 +14,9 @@ export default function Home() {
   // NOW
   const [nowQuestion, setNowQuestion] = useState("");
   // WAIT一覧
-  const [waitQuestions, setWaitQuestions] = useState([
-    "あああああああああああああああああああああ",
-    "いいいいいいいいいいいいいいいいいいいいいいいいいいいいいい",
-  ]);
+  const [waitQuestions, setWaitQuestions] = useState([""]);
   // DONE一覧
-  const [doneQuestions, setDoneQuestions] = useState([
-    "とおおおおおおおおおおおおおおおおおおおおおおおおおお",
-    "あああああああええええええええいいいいいいいいいいいいいいいいｄｄｄ",
-    "eeeee",
-  ]);
+  const [doneQuestions, setDoneQuestions] = useState([""]);
   // DBから取得したデータ
   const [questions, setQuestions] = useState([]);
 
@@ -38,13 +31,21 @@ export default function Home() {
     setInputQuestion("");
   };
   // NOWボタン
-  const onClickNow = () => {
+  const onClickNow = async (id) => {
     if (nowQuestion) {
       // DONE一覧に追加
       const newDoneQuestions = [...doneQuestions, nowQuestion];
       setDoneQuestions(newDoneQuestions);
       setNowQuestion("");
     }
+    // update
+    const { data, error } = await supabase
+      .from("questions")
+      .update({ "status-kbn": "done" })
+      .eq("id", id);
+    console.log(data);
+    console.log(error);
+    console.log(id);
   };
   // WAITボタン
   const onClickWait = (index) => {
@@ -136,24 +137,24 @@ export default function Home() {
         </div>
 
         {/* NOW */}
-        <div className="bg-yellow-50 pb-1 rounded-3xl mx-1">
-          <div className="my-2 mx-2 flex">
-            <button
-              className="px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-yellow-200 hover:bg-yellow-300 text-yellow-900 focus:outline-none"
-              onClick={onClickNow}
-            >
-              NOW
-            </button>
-            {Object.keys(questions).map(
-              (index) =>
-                questions[index]["status-kbn"] === "now" && (
-                  <p key={index} className="border-b my-auto">
+        {Object.keys(questions).map(
+          (index) =>
+            questions[index]["status-kbn"] === "now" && (
+              <div key={index} className="bg-yellow-50 pb-1 rounded-3xl mx-1">
+                <div className="my-2 mx-2 flex">
+                  <button
+                    className="px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-yellow-200 hover:bg-yellow-300 text-yellow-900 focus:outline-none"
+                    onClick={() => onClickNow(questions[index].id)}
+                  >
+                    NOW
+                  </button>
+                  <p className="border-b my-auto">
                     {questions[index].question}
                   </p>
-                )
-            )}
-          </div>
-        </div>
+                </div>
+              </div>
+            )
+        )}
 
         {/* 点線 */}
         <div className="border-dashed border-t-4 my-2 mx-3"></div>
@@ -162,8 +163,8 @@ export default function Home() {
         {Object.keys(questions).map(
           (index) =>
             questions[index]["status-kbn"] === "wait" && (
-              <div className="bg-indigo-50 py-1 rounded-3xl m-1">
-                <div key={index} className="my-2 mx-2 flex">
+              <div key={index} className="bg-indigo-50 py-1 rounded-3xl m-1">
+                <div className="my-2 mx-2 flex">
                   <button
                     className="px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-indigo-200 hover:bg-indigo-300 text-indigo-900 focus:outline-none"
                     onClick={() => onClickWait(index)}
@@ -188,8 +189,8 @@ export default function Home() {
         {Object.keys(questions).map(
           (index) =>
             questions[index]["status-kbn"] === "done" && (
-              <div className="bg-gray-50 py-1 rounded-3xl m-1">
-                <div key={index} className="my-2 mx-2 flex">
+              <div key={index} className="bg-gray-50 py-1 rounded-3xl m-1">
+                <div className="my-2 mx-2 flex">
                   <button
                     className="px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none"
                     onClick={() => onClickDone(index)}

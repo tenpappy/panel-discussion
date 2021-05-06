@@ -25,10 +25,26 @@ export default function Home() {
     setInputQuestion(e.target.value);
   };
   // 投稿ボタン
-  const onClickEntry = () => {
-    const newWaitQuestions = [inputQuestion, ...waitQuestions];
-    setWaitQuestions(newWaitQuestions);
-    setInputQuestion("");
+  const onClickEntry = async () => {
+    // insert）
+    const { error: insertError } = await supabase
+      .from("questions")
+      .insert([{ question: inputQuestion, "status-kbn": "wait" }]);
+    if (insertError) {
+      alert("投稿処理に失敗しました");
+    } else {
+      setInputQuestion("");
+    }
+
+    // select（データ再取得）
+    const { data: questions, error: selectError } = await supabase
+      .from("questions")
+      .select(`"id","question","status-kbn","good-count","theme-kbn"`);
+    if (selectError) {
+      alert("データ取得処理に失敗しました");
+    } else {
+      setQuestions(questions);
+    }
   };
   // NOWボタン
   const onClickNow = async (id: number) => {
@@ -57,12 +73,16 @@ export default function Home() {
         questions[index]["status-kbn"] === "now" &&
         (beforeNowId = questions[index].id)
     );
-    // update（now->done）
-    const { error: updateError } = await supabase
-      .from("questions")
-      .update({ "status-kbn": "done" })
-      .eq("id", beforeNowId);
-    if (updateError) alert("ステータス更新処理(now->done)に失敗しました");
+
+    if (beforeNowId) {
+      // update（now->done）
+      const { error: updateError } = await supabase
+        .from("questions")
+        .update({ "status-kbn": "done" })
+        .eq("id", beforeNowId);
+      if (updateError)
+        alert("ステータス更新処理(now->done)に失敗しましたssssssssss");
+    }
 
     // update（wait->now）
     const { error: updateError2 } = await supabase

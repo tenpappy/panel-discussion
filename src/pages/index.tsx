@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../util/supabase";
 
 export default function Home() {
@@ -31,69 +31,128 @@ export default function Home() {
     setInputQuestion("");
   };
   // NOWボタン
-  const onClickNow = async (id) => {
-    if (nowQuestion) {
-      // DONE一覧に追加
-      const newDoneQuestions = [...doneQuestions, nowQuestion];
-      setDoneQuestions(newDoneQuestions);
-      setNowQuestion("");
-    }
-    // update
-    const { data, error } = await supabase
+  const onClickNow = async (id: number) => {
+    // update（now->done）
+    const { data, error: updateEerror } = await supabase
       .from("questions")
       .update({ "status-kbn": "done" })
       .eq("id", id);
-    console.log(data);
-    console.log(error);
-    console.log(id);
-  };
-  // WAITボタン
-  const onClickWait = (index) => {
-    const newWaitQuestions = [...waitQuestions];
-    // 押された要素をWAIT一覧から削除
-    newWaitQuestions.splice(index, 1);
-    if (nowQuestion) {
-      // 現在のNOW要素をDONE一覧に追加
-      const newDoneQuestions = [...doneQuestions, nowQuestion];
-      setDoneQuestions(newDoneQuestions);
-    }
-    setWaitQuestions(newWaitQuestions);
-    setNowQuestion(waitQuestions[index]);
-  };
-  // DONEボタン（WAITへの戻し用）
-  const onClickDone = (index) => {
-    const newDoneQuestions = [...doneQuestions];
-    // 押された要素をDONE一覧から削除
-    newDoneQuestions.splice(index, 1);
-    // 押された要素をWAIT一覧に追加
-    const newWaitQuestions = [...waitQuestions, doneQuestions[index]];
-    setDoneQuestions(newDoneQuestions);
-    setWaitQuestions(newWaitQuestions);
-  };
-  // WAITのDELボタン
-  const onClickWaitDel = (index) => {
-    const newWaitQuestions = [...waitQuestions];
-    // 押された要素をWAIT一覧から削除
-    newWaitQuestions.splice(index, 1);
-    setWaitQuestions(newWaitQuestions);
-  };
-  // DONEのDELボタン
-  const onClickDoneDel = (index) => {
-    const newDoneQuestions = [...doneQuestions];
-    // 押された要素をDONE一覧から削除
-    newDoneQuestions.splice(index, 1);
-    setDoneQuestions(newDoneQuestions);
-  };
+    if (updateEerror) alert("ステータス更新処理に失敗しました");
 
-  // ★テストDB接続用
-  const onClickTest = async () => {
-    let { data: questions, error } = await supabase
+    // select（データ再取得）
+    const { data: questions, error: selectError } = await supabase
       .from("questions")
       .select(`"id","question","status-kbn","good-count","theme-kbn"`);
-    // .eq("status-kbn", "wait");
-    console.log(questions);
-    setQuestions(questions);
+    if (selectError) {
+      alert("データ取得処理に失敗しました");
+    } else {
+      setQuestions(questions);
+    }
   };
+  // WAITボタン
+  const onClickWait = async (id: number) => {
+    let beforeNowId = "";
+    Object.keys(questions).map(
+      (index) =>
+        questions[index]["status-kbn"] === "now" &&
+        (beforeNowId = questions[index].id)
+    );
+    // update（now->done）
+    const { error: updateError } = await supabase
+      .from("questions")
+      .update({ "status-kbn": "done" })
+      .eq("id", beforeNowId);
+    if (updateError) alert("ステータス更新処理(now->done)に失敗しました");
+
+    // update（wait->now）
+    const { error: updateError2 } = await supabase
+      .from("questions")
+      .update({ "status-kbn": "now" })
+      .eq("id", id);
+    if (updateError2) alert("ステータス更新処理(wait->now)に失敗しました");
+
+    // select（データ再取得）
+    const { data: questionsNew, error: selectError } = await supabase
+      .from("questions")
+      .select(`"id","question","status-kbn","good-count","theme-kbn"`);
+    if (selectError) {
+      alert("データ取得処理に失敗しました");
+    } else {
+      setQuestions(questionsNew);
+    }
+  };
+  // DONEボタン（WAITへの戻し用）
+  const onClickDone = async (id: number) => {
+    // update（done->wait）
+    const { data, error: updateError } = await supabase
+      .from("questions")
+      .update({ "status-kbn": "wait" })
+      .eq("id", id);
+    if (updateError) alert("ステータス更新処理に失敗しました");
+
+    // select（データ再取得）
+    const { data: questions, error: selectError } = await supabase
+      .from("questions")
+      .select(`"id","question","status-kbn","good-count","theme-kbn"`);
+    if (selectError) {
+      alert("データ取得処理に失敗しました");
+    } else {
+      setQuestions(questions);
+    }
+  };
+  // WAITのDELボタン
+  const onClickWaitDel = async (id: number) => {
+    // delete
+    const { data, error: deleteError } = await supabase
+      .from("questions")
+      .delete()
+      .eq("id", id);
+    if (deleteError) alert("データ削除処理に失敗しました");
+
+    // select（データ再取得）
+    const { data: questions, error: selectEerror } = await supabase
+      .from("questions")
+      .select(`"id","question","status-kbn","good-count","theme-kbn"`);
+    if (selectEerror) {
+      alert("データ取得処理に失敗しました");
+    } else {
+      setQuestions(questions);
+    }
+  };
+  // DONEのDELボタン
+  const onClickDoneDel = async (id: number) => {
+    // delete
+    const { data, error: deleteError } = await supabase
+      .from("questions")
+      .delete()
+      .eq("id", id);
+    if (deleteError) alert("データ削除処理に失敗しました");
+
+    // select（データ再取得）
+    const { data: questions, error: selectError } = await supabase
+      .from("questions")
+      .select(`"id","question","status-kbn","good-count","theme-kbn"`);
+    if (selectError) {
+      alert("データ取得処理に失敗しました");
+    } else {
+      setQuestions(questions);
+    }
+  };
+
+  // 初回データ取得
+  useEffect(() => {
+    console.log("★１回だけ実行");
+    (async () => {
+      let { data: questions, error } = await supabase
+        .from("questions")
+        .select(`"id","question","status-kbn","good-count","theme-kbn"`);
+      if (error) {
+        alert("データ取得処理に失敗しました");
+      } else {
+        setQuestions(questions);
+      }
+    })();
+  }, []);
 
   return (
     <div>
@@ -105,23 +164,12 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.svg" />
       </Head>
-      {/* ★★★★★★★★ */}
-      <button className="bg-yellow-500" onClick={onClickTest}>
-        データ取得
-      </button>
-      <ul>
-        {Object.keys(questions).map((key) => (
-          <li key={key}>
-            {questions[key].question},{questions[key]["status-kbn"]}
-          </li>
-        ))}
-      </ul>
       <main className="min-h-screen">
         {/* 投稿 */}
-        <div className="items-end flex">
+        <div className="md:flex items-end">
           <textarea
-            className="border border-gray-900 p-2 mx-2 mt-2 rounded-lg  focus:outline-none "
-            cols={90}
+            className="w-11/12 max-w-3xl border border-gray-900 p-1 mx-2 mt-2 rounded-lg  focus:outline-none "
+            // cols={45}
             rows={3}
             maxLength={100}
             placeholder="入力してください"
@@ -129,7 +177,7 @@ export default function Home() {
             onChange={onChangeQuestion}
           />
           <button
-            className="px-6 py-2 text-base font-semibold rounded-full border-b border-purple-300 bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none"
+            className="w-20 px-6 py-2 mx-2 text-base font-semibold rounded-full border-b border-purple-300 bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none"
             onClick={onClickEntry}
           >
             投稿
@@ -167,7 +215,7 @@ export default function Home() {
                 <div className="my-2 mx-2 flex">
                   <button
                     className="px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-indigo-200 hover:bg-indigo-300 text-indigo-900 focus:outline-none"
-                    onClick={() => onClickWait(index)}
+                    onClick={() => onClickWait(questions[index].id)}
                   >
                     WAIT
                   </button>
@@ -176,7 +224,7 @@ export default function Home() {
                   </p>
                   <div
                     className="p-3 cursor-pointer ml-auto"
-                    onClick={() => onClickWaitDel(index)}
+                    onClick={() => onClickWaitDel(questions[index].id)}
                   >
                     <FontAwesomeIcon style={iconStyle} icon={faTrashAlt} />
                   </div>
@@ -193,7 +241,7 @@ export default function Home() {
                 <div className="my-2 mx-2 flex">
                   <button
                     className="px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none"
-                    onClick={() => onClickDone(index)}
+                    onClick={() => onClickDone(questions[index].id)}
                   >
                     DONE
                   </button>
@@ -202,7 +250,7 @@ export default function Home() {
                   </p>
                   <div
                     className="p-3 cursor-pointer ml-auto"
-                    onClick={() => onClickDoneDel(index)}
+                    onClick={() => onClickDoneDel(questions[index].id)}
                   >
                     <FontAwesomeIcon style={iconStyle} icon={faTrashAlt} />
                   </div>

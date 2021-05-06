@@ -1,9 +1,6 @@
 import Head from "next/head";
-import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
-import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
-import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { supabase } from "../util/supabase";
 

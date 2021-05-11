@@ -155,6 +155,7 @@ export default function Home() {
       />
       <Header title="Panel Discussion　しまぶー×じゃけぇ" />
       <main className="min-h-screen">
+        <div className="bg-yellow-50">背景色テスト</div>
         {/* 投稿 */}
         <Entry
           value={inputQuestion}

@@ -116,7 +116,7 @@ export default function Home() {
       setQuestions(questions);
     }
   };
-  // WAITのDELボタン
+  // DELボタン
   const onClickDel = async (id: number) => {
     // delete
     const { data, error: deleteError } = await supabase
@@ -135,34 +135,6 @@ export default function Home() {
       setQuestions(questions);
     }
   };
-  // WAITのDELボタン
-  const onClickWaitDel = async (id: number) => {
-    // delete
-    const { data, error: deleteError } = await supabase
-      .from("questions")
-      .delete()
-      .eq("id", id);
-    if (deleteError) alert("データ削除処理に失敗しました");
-
-    // select（データ再取得）
-    const { data: questions, error: selectEerror } = await supabase
-      .from("questions")
-      .select(`"id","question","status-kbn","good-count","theme-kbn"`);
-    if (selectEerror) {
-      alert("データ取得処理に失敗しました");
-    } else {
-      setQuestions(questions);
-    }
-  };
-  // DONEのDELボタン
-  const onClickDoneDel = async (id: number) => {
-    // delete
-    const { data, error: deleteError } = await supabase
-      .from("questions")
-      .delete()
-      .eq("id", id);
-    if (deleteError) alert("データ削除処理に失敗しました");
-
     // select（データ再取得）
     const { data: questions, error: selectError } = await supabase
       .from("questions")

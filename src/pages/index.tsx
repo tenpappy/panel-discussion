@@ -3,9 +3,7 @@ import { supabase } from "../util/supabase";
 import { HeadInfo } from "../components/organism/HeadInfo";
 import { Header } from "./../components/organism/Header";
 import { Entry } from "./../components/molecule/Entry";
-import { QuestionMessage } from "./../components/atom/QuestionMessage";
 import { StatusAndQuestion } from "../components/molecule/StatusAndQuestion";
-import { WaitButton } from "./../components/atom/WaitButton";
 
 export default function Home() {
   // 質問入力欄

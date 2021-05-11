@@ -135,17 +135,6 @@ export default function Home() {
       setQuestions(questions);
     }
   };
-    // select（データ再取得）
-    const { data: questions, error: selectError } = await supabase
-      .from("questions")
-      .select(`"id","question","status-kbn","good-count","theme-kbn"`);
-    if (selectError) {
-      alert("データ取得処理に失敗しました");
-    } else {
-      setQuestions(questions);
-    }
-  };
-
   // 初回データ取得
   useEffect(() => {
     (async () => {

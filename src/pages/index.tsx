@@ -166,17 +166,15 @@ export default function Home() {
         {Object.keys(questions).map(
           (index) =>
             questions[index]["status-kbn"] === "now" && (
-              <div key={index} className={`bg-yellow-50 pb-1 rounded-3xl mx-1`}>
-                <StatusAndQuestion
-                  key={index}
-                  onClick={onClickNow}
-                  id={questions[index].id}
-                  question={questions[index].question}
-                  bgColor="yellow"
-                  isDeletable={false}
-                  name="NOW"
-                />
-              </div>
+              <StatusAndQuestion
+                key={index}
+                onClick={onClickNow}
+                id={questions[index].id}
+                question={questions[index].question}
+                bgColor="yellow"
+                isDeletable={false}
+                name="NOW"
+              />
             )
         )}
 
@@ -187,21 +185,16 @@ export default function Home() {
         {Object.keys(questions).map(
           (index) =>
             questions[index]["status-kbn"] === "wait" && (
-              <div
+              <StatusAndQuestion
                 key={index}
-                className={`bg-indigo-200 pb-1 rounded-3xl mx-1`}
-              >
-                <StatusAndQuestion
-                  key={index}
-                  onClick={onClickWait}
-                  id={questions[index].id}
-                  question={questions[index].question}
-                  bgColor="indigo"
-                  isDeletable={true}
-                  name="WAIT"
-                  onClickDel={onClickDel}
-                />
-              </div>
+                onClick={onClickWait}
+                id={questions[index].id}
+                question={questions[index].question}
+                bgColor="indigo"
+                isDeletable={true}
+                name="WAIT"
+                onClickDel={onClickDel}
+              />
             )
         )}
 
@@ -209,18 +202,16 @@ export default function Home() {
         {Object.keys(questions).map(
           (index) =>
             questions[index]["status-kbn"] === "done" && (
-              <div key={index} className={`bg-gray-50 pb-1 rounded-3xl mx-1`}>
-                <StatusAndQuestion
-                  key={index}
-                  onClick={onClickDone}
-                  id={questions[index].id}
-                  question={questions[index].question}
-                  bgColor="gray"
-                  isDeletable={true}
-                  name="DONE"
-                  onClickDel={onClickDel}
-                />
-              </div>
+              <StatusAndQuestion
+                key={index}
+                onClick={onClickDone}
+                id={questions[index].id}
+                question={questions[index].question}
+                bgColor="gray"
+                isDeletable={true}
+                name="DONE"
+                onClickDel={onClickDel}
+              />
             )
         )}
       </main>

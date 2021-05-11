@@ -23,8 +23,8 @@ export const StatusAndQuestion: VFC<Props> = (props) => {
     question,
     bgColor,
     isDeletable,
-    onClickDel,
     name,
+    onClickDel,
   } = props;
   const iconStyle: React.CSSProperties = { padding: 9 };
   return (

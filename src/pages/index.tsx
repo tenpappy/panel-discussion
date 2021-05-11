@@ -234,6 +234,7 @@ export default function Home() {
                 bgColor="indigo"
                 isDeletable={true}
                 name="WAIT"
+                onClickDel={onClickDel}
               />
             )
         )}
@@ -250,27 +251,8 @@ export default function Home() {
                 bgColor="gray"
                 isDeletable={true}
                 name="DONE"
+                onClickDel={onClickDel}
               />
-
-              // <div key={index} className="bg-gray-50 py-1 rounded-3xl m-1">
-              //   <div className="my-2 mx-2 flex">
-              //     <button
-              //       className="px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none"
-              //       onClick={() => onClickDone(questions[index].id)}
-              //     >
-              //       DONE
-              //     </button>
-              //     <p className="border-b my-auto">
-              //       {questions[index].question}
-              //     </p>
-              //     <div
-              //       className="p-3 cursor-pointer ml-auto"
-              //       onClick={() => onClickDel(questions[index].id)}
-              //     >
-              //       <FontAwesomeIcon style={iconStyle} icon={faTrashAlt} />
-              //     </div>
-              //   </div>
-              // </div>
             )
         )}
       </main>

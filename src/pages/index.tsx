@@ -187,7 +187,7 @@ export default function Home() {
         {Object.keys(questions).map(
           (index) =>
             questions[index]["status-kbn"] === "wait" && (
-              <div key={index} className={`bg-indigo-50 pb-1 rounded-3xl mx-1`}>
+              <div key={index} className={`bg-gray-50 pb-1 rounded-3xl mx-1`}>
                 <StatusAndQuestion
                   key={index}
                   onClick={onClickWait}

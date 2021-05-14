@@ -165,6 +165,16 @@ export default function Home() {
         <div className="bg-yellow-700">背景色テスト</div>
         <div className="bg-yellow-800">背景色テスト</div>
         <div className="bg-yellow-900">背景色テスト</div>
+        <div className=" text-green-50 font-black">文字色テスト</div>
+        <div className=" text-green-100 font-black">文字色テスト</div>
+        <div className=" text-green-200 font-black">文字色テスト</div>
+        <div className=" text-green-300 font-black">文字色テスト</div>
+        <div className=" text-green-400 font-black">文字色テスト</div>
+        <div className=" text-green-500 font-black">文字色テスト</div>
+        <div className=" text-green-600 font-black">文字色テスト</div>
+        <div className=" text-green-700 font-black">文字色テスト</div>
+        <div className=" text-green-800 font-black">文字色テスト</div>
+        <div className=" text-green-900 font-black">文字色テスト</div>
         {/* 投稿 */}
         <Entry
           value={inputQuestion}

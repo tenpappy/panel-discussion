@@ -155,6 +155,8 @@ export default function Home() {
       />
       <Header title="Panel Discussion　しまぶー×じゃけぇ" />
       <main className="min-h-screen">
+        <div className="bg-indigo-50">背景色テスト</div>
+        <div className="bg-gray-50">背景色テスト</div>
         <div className="bg-yellow-50">背景色テスト</div>
         <div className="bg-yellow-100">背景色テスト</div>
         <div className="bg-yellow-200">背景色テスト</div>

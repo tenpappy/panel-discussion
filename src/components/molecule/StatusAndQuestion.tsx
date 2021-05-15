@@ -21,7 +21,6 @@ export const StatusAndQuestion: VFC<Props> = (props) => {
   const bgColor50 = `bg-${bgColor}-50`;
   return (
     <div>
-      {/* <div className={`bg-yellow-50 pb-1 rounded-3xl mx-1`}> */}
       <div className={`${bgColor50} pb-1 rounded-3xl mx-1`}>
         <div className="my-2 mx-2 flex">
           <StatusButton

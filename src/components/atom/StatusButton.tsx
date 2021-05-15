@@ -19,9 +19,13 @@ export const StatusButton: VFC<Props> = (props) => {
         onClick={() => onClick(id)}
       > */}
       <button
-        className={`px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 ${bgColor200} ${bgColorHover} ${bgColorText} focus:outline-none`}
+        className={`px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 bg-${bgColor}-200 ${bgColorHover} ${bgColorText} focus:outline-none`}
         onClick={() => onClick(id)}
       >
+        {/* <button
+        className={`px-6 py-2 my-3 mr-2 h-10 text-base font-semibold rounded-full border-b border-purple-300 ${bgColor200} ${bgColorHover} ${bgColorText} focus:outline-none`}
+        onClick={() => onClick(id)}
+      > */}
         {name}
       </button>
     </div>

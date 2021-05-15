@@ -20,8 +20,8 @@ export const StatusAndQuestion: VFC<Props> = (props) => {
   const iconStyle: React.CSSProperties = { padding: 9 };
   const bgColor50 = `bg-${bgColor}-50`;
   return (
-    // <div key={key} className={`${bgColor50} pb-1 rounded-3xl mx-1`}>
-    <div className={`bg-yellow-50 pb-1 rounded-3xl mx-1`}>
+    <div className={`${bgColor50} pb-1 rounded-3xl mx-1`}>
+      {/* <div className={`bg-yellow-50 pb-1 rounded-3xl mx-1`}> */}
       <div className="my-2 mx-2 flex">
         <StatusButton onClick={onClick} id={id} bgColor={bgColor} name={name} />
         <QuestionMessage content={question} />

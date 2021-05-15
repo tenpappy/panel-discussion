@@ -8,7 +8,7 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-  options: {
-    safelist: ['bg-yellow-50', 'bg-yellow-100', 'bg-yellow-200', 'bg-yellow-300', 'bg-yellow-900'],
-  },
+  // options: {
+  //   safelist: ['bg-yellow-50', 'bg-yellow-200', 'bg-yellow-200', 'text-yellow-900'],
+  // },
 }

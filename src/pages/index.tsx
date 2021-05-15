@@ -155,28 +155,6 @@ export default function Home() {
       />
       <Header title="Panel Discussion　しまぶー×じゃけぇ" />
       <main className="min-h-screen">
-        <div className="bg-indigo-50">背景色テスト</div>
-        <div className="bg-gray-50">背景色テスト</div>
-        <div className="bg-yellow-50">背景色テスト</div>
-        <div className="bg-yellow-100">背景色テスト</div>
-        <div className="bg-yellow-200">背景色テスト</div>
-        <div className="bg-yellow-300">背景色テスト</div>
-        <div className="bg-yellow-400">背景色テスト</div>
-        <div className="bg-yellow-500">背景色テスト</div>
-        <div className="bg-yellow-600">背景色テスト</div>
-        <div className="bg-yellow-700">背景色テスト</div>
-        <div className="bg-yellow-800">背景色テスト</div>
-        <div className="bg-yellow-900">背景色テスト</div>
-        <div className=" text-green-50 font-black">文字色テスト</div>
-        <div className=" text-green-100 font-black">文字色テスト</div>
-        <div className=" text-green-200 font-black">文字色テスト</div>
-        <div className=" text-green-300 font-black">文字色テスト</div>
-        <div className=" text-green-400 font-black">文字色テスト</div>
-        <div className=" text-green-500 font-black">文字色テスト</div>
-        <div className=" text-green-600 font-black">文字色テスト</div>
-        <div className=" text-green-700 font-black">文字色テスト</div>
-        <div className=" text-green-800 font-black">文字色テスト</div>
-        <div className=" text-green-900 font-black">文字色テスト</div>
         {/* 投稿 */}
         <Entry
           value={inputQuestion}

@@ -20,7 +20,7 @@ export const BaseForm: VFC<Props> = ({ onSubmit, buttonText, inputList }) => {
       <div className="container pt-10 max-w-md mx-auto">
         <form onSubmit={onSubmit}>
           {inputList.map((props) => (
-            <div key={props.placeholder} className="mb-4">
+            <div key={props.type} className="mb-4">
               <input
                 {...props}
                 className="shadow appearance-none  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

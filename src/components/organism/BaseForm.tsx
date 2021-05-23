@@ -6,7 +6,8 @@ type Props = {
   inputList: {
     ref: any;
     type: string;
-    placeholder: string;
+    placeholder?: string;
+    name?: string;
   }[];
 };
 

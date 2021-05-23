@@ -4,6 +4,7 @@ import { HeadInfo } from "../components/organism/HeadInfo";
 import { Header } from "./../components/organism/Header";
 import { Entry } from "./../components/molecule/Entry";
 import { StatusAndQuestion } from "../components/molecule/StatusAndQuestion";
+import { Footer } from "./../components/organism/Footer";
 
 export default function Home() {
   // 質問入力欄
@@ -48,7 +49,10 @@ export default function Home() {
       .from("questions")
       .update({ "status-kbn": "done" })
       .eq("id", id);
-    if (updateEerror) alert("ステータス更新処理に失敗しました");
+    if (updateEerror)
+      alert(
+        "ステータス更新処理に失敗しました。他の人がステータスを変更した可能性があります。"
+      );
 
     // select（データ再取得）
     const { data: questions, error: selectError } = await supabase
@@ -75,7 +79,10 @@ export default function Home() {
         .from("questions")
         .update({ "status-kbn": "done" })
         .eq("id", beforeNowId);
-      if (updateError) alert("ステータス更新処理(now->done)に失敗しました");
+      if (updateError)
+        alert(
+          "ステータス更新処理(now->done)に失敗しました。他の人がステータスを変更した可能性があります。"
+        );
     }
 
     // update（wait->now）
@@ -83,7 +90,10 @@ export default function Home() {
       .from("questions")
       .update({ "status-kbn": "now" })
       .eq("id", id);
-    if (updateError2) alert("ステータス更新処理(wait->now)に失敗しました");
+    if (updateError2)
+      alert(
+        "ステータス更新処理(wait->now)に失敗しました。他の人がステータスを変更した可能性があります。"
+      );
 
     // select（データ再取得）
     const { data: questionsNew, error: selectError } = await supabase
@@ -102,7 +112,10 @@ export default function Home() {
       .from("questions")
       .update({ "status-kbn": "wait" })
       .eq("id", id);
-    if (updateError) alert("ステータス更新処理に失敗しました");
+    if (updateError)
+      alert(
+        "ステータス更新処理に失敗しました。他の人がステータスを変更した可能性があります。"
+      );
 
     // select（データ再取得）
     const { data: questions, error: selectError } = await supabase
@@ -121,7 +134,10 @@ export default function Home() {
       .from("questions")
       .delete()
       .eq("id", id);
-    if (deleteError) alert("データ削除処理に失敗しました");
+    if (deleteError)
+      alert(
+        "データ削除処理に失敗しました。他の人がステータスを変更した可能性があります。"
+      );
 
     // select（データ再取得）
     const { data: questions, error: selectEerror } = await supabase
@@ -215,11 +231,7 @@ export default function Home() {
             )
         )}
       </main>
-      <footer>
-        <p className="h-11 mt-2  p-2 bg-gray-700  text-white">
-          © 2021 てんぱぱ
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 }

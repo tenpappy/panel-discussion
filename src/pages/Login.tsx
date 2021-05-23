@@ -29,12 +29,12 @@ export default function Login() {
     {
       type: "email",
       ...register("email", { required: true }),
-      // placeholder: "Username",
+      placeholder: "Username",
     },
     {
       type: "password",
       ...register("password", { required: true }),
-      // placeholder: "Password",
+      placeholder: "Password",
     },
   ];
 
@@ -49,11 +49,8 @@ export default function Login() {
 
   return (
     <div>
-      <h1 className="bg-yellow-600 text-green-600 text-3xl hover:bg-red-900">
-        ログイン、ログアウト機能実装中！！！！！！！！！
-      </h1>
       <button className="bg-yellow-400" onClick={onClickLogout}>
-        ログアウト
+        ログアウトtest
       </button>
       <BaseForm
         onSubmit={handleSubmit(handleSignin)}

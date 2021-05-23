@@ -9,6 +9,8 @@ type Props = {
 
 export const Header: VFC<Props> = (props) => {
   const { title } = props;
+  const iconStyle: React.CSSProperties = { margin: 4, width: 16 };
+
   return (
     <header className="flex h-10 mb-2 p-2 bg-gray-700 text-white">
       <p>{title}</p>
@@ -20,7 +22,9 @@ export const Header: VFC<Props> = (props) => {
           <a>
             <FontAwesomeIcon
               icon={faSignInAlt}
-              className="cursor-pointer w-4 pt-1 ml-1"
+              // className="cursor-pointer w-4 pt-1 ml-1"
+              className="cursor-pointer"
+              style={iconStyle}
             />
           </a>
         </Link>

@@ -52,14 +52,14 @@ export default function Login() {
       <h1 className="bg-yellow-600 text-green-600 text-3xl hover:bg-red-900">
         ログイン、ログアウト機能実装中！！！！！！！！！
       </h1>
-      {/* <button className="bg-yellow-400" onClick={onClickLogout}>
+      <button className="bg-yellow-400" onClick={onClickLogout}>
         ログアウト
       </button>
       <BaseForm
         onSubmit={handleSubmit(handleSignin)}
         inputList={inputList}
         buttonText="ログイン"
-      /> */}
+      />
     </div>
   );
 }

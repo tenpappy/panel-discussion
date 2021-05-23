@@ -19,7 +19,7 @@ export const Entry: VFC<Props> = (props) => {
         onChange={onChange}
       />
       <button
-        className="w-20 px-6 py-2 mx-2 text-base font-semibold rounded-full border-b border-purple-300 bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none"
+        className="px-6 py-2 mx-2 text-base font-semibold rounded-full border-b border-purple-300 bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none"
         onClick={onClick}
       >
         投稿

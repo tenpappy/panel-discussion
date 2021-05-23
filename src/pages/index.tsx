@@ -11,6 +11,8 @@ export default function Home() {
   const [inputQuestion, setInputQuestion] = useState("");
   // DBから取得したデータ
   const [questions, setQuestions] = useState([]);
+  // ログインしているか
+  const [isLogin, setIsLogin] = useState(false);
 
   // 質問入力欄
   const onChangeQuestion = (e: any) => {
@@ -163,11 +165,21 @@ export default function Home() {
     })();
   }, []);
 
+  // // ログイン状態取得
+  // useEffect(() => {
+  //   const user = supabase.auth.user();
+  //   // ログインしているか
+  //   setIsLogin(!isLogin);
+  // }, []);
+
   // ログインユーザ確認
   const user = supabase.auth.user();
   console.log({ user });
-  const session = supabase.auth.session();
-  console.log(session);
+  // const session = supabase.auth.session();
+  // console.log(session);
+
+  // // ログインしているか
+  // const [isLogin, setIsLogin] = useState(false);
 
   return (
     <div>
@@ -176,6 +188,7 @@ export default function Home() {
         content="パネルディスカッション用のツールです"
       />
       <Header title="Panel Discussion　しまぶー×じゃけぇ" />
+      {user && <div>ログインしてます</div>}
       <main className="min-h-screen">
         {/* 投稿 */}
         <Entry

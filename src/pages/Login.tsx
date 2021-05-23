@@ -28,13 +28,13 @@ export default function Login() {
   const inputList = [
     {
       type: "email",
-      name: "email",
       ...register("email", { required: true }),
+      placeholder: "Username",
     },
     {
       type: "password",
-      name: "password",
       ...register("password", { required: true }),
+      placeholder: "Password",
     },
   ];
 
@@ -49,14 +49,16 @@ export default function Login() {
 
   return (
     <div>
+      <h1 className="text-3xl text-green-600 ">
+        ログイン、ログアウト機能実装中！！！！！！！！！
+      </h1>
       <button className="bg-yellow-400" onClick={onClickLogout}>
         ログアウト
       </button>
-      <p className="text-4xl text-green-600 ">ログイン処理実装中です</p>
       <BaseForm
         onSubmit={handleSubmit(handleSignin)}
         inputList={inputList}
-        buttonText="サインイン"
+        buttonText="ログイン"
       />
     </div>
   );

@@ -49,7 +49,7 @@ export default function Login() {
 
   return (
     <div>
-      <h1 className="text-3xl bg-yellow-600 text-green-600 ">
+      <h1 className="bg-yellow-600 text-green-600 text-3xl hover:bg-red-900">
         ログイン、ログアウト機能実装中！！！！！！！！！
       </h1>
       {/* <button className="bg-yellow-400" onClick={onClickLogout}>

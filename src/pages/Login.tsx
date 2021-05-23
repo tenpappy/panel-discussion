@@ -29,12 +29,10 @@ export default function Login() {
     {
       type: "email",
       ...register("email", { required: true }),
-      // placeholder: "Username",
     },
     {
       type: "password",
       ...register("password", { required: true }),
-      // placeholder: "Password",
     },
   ];
 

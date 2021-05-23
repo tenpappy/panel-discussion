@@ -38,20 +38,8 @@ export default function Login() {
     },
   ];
 
-  const onClickLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      alert(error);
-      console.log(error.message);
-      console.log(error);
-    }
-  };
-
   return (
     <div>
-      <button className="bg-yellow-400" onClick={onClickLogout}>
-        ログアウトtest
-      </button>
       <BaseForm
         onSubmit={handleSubmit(handleSignin)}
         inputList={inputList}

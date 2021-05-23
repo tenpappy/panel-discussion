@@ -165,21 +165,14 @@ export default function Home() {
     })();
   }, []);
 
-  // // ログイン状態取得
-  // useEffect(() => {
-  //   const user = supabase.auth.user();
-  //   // ログインしているか
-  //   setIsLogin(!isLogin);
-  // }, []);
+  // ログイン状態取得
+  useEffect(() => {
+    console.log("ログインチェック");
+    const user = supabase.auth.user();
+    user ? setIsLogin(true) : setIsLogin(false);
+  }, []);
 
-  // ログインユーザ確認
-  const user = supabase.auth.user();
-  console.log({ user });
-  // const session = supabase.auth.session();
-  // console.log(session);
-
-  // // ログインしているか
-  // const [isLogin, setIsLogin] = useState(false);
+  console.log("★★★レンダリング");
 
   return (
     <div>
@@ -187,8 +180,12 @@ export default function Home() {
         title="パネルディスカッション"
         content="パネルディスカッション用のツールです"
       />
-      <Header title="Panel Discussion　しまぶー×じゃけぇ" />
-      {user && <div>ログインしてます</div>}
+      <Header
+        title="Panel Discussion　しまぶー×じゃけぇ"
+        isLogin={isLogin}
+        setIsLogin={setIsLogin}
+      />
+      {isLogin && <div>ログインしてます</div>}
       <main className="min-h-screen">
         {/* 投稿 */}
         <Entry

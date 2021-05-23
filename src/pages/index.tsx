@@ -163,6 +163,12 @@ export default function Home() {
     })();
   }, []);
 
+  // ログインユーザ確認
+  const user = supabase.auth.user();
+  console.log({ user });
+  const session = supabase.auth.session();
+  console.log(session);
+
   return (
     <div>
       <HeadInfo

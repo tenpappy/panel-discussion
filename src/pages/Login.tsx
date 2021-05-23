@@ -29,10 +29,12 @@ export default function Login() {
     {
       type: "email",
       ...register("email", { required: true }),
+      // placeholder: "Username",
     },
     {
       type: "password",
       ...register("password", { required: true }),
+      // placeholder: "Password",
     },
   ];
 
@@ -50,14 +52,14 @@ export default function Login() {
       <h1 className="text-3xl text-green-600 ">
         ログイン、ログアウト機能実装中！！！！！！！！！
       </h1>
-      <button className="bg-yellow-400" onClick={onClickLogout}>
+      {/* <button className="bg-yellow-400" onClick={onClickLogout}>
         ログアウト
       </button>
       <BaseForm
         onSubmit={handleSubmit(handleSignin)}
         inputList={inputList}
         buttonText="ログイン"
-      />
+      /> */}
     </div>
   );
 }

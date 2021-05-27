@@ -9,6 +9,6 @@ module.exports = {
   },
   plugins: [],
   options: {
-    safelist: ['bg-yellow-50', 'bg-yellow-300', 'text-yellow-900', 'bg-indigo-50', 'bg-indigo-300', 'text-indigo-900', 'bg-gray-50', 'bg-gray-300', 'text-gray-900'],
+    safelist: ['bg-yellow-50', 'bg-yellow-300', 'text-yellow-900', 'bg-indigo-50', 'bg-indigo-300', 'text-indigo-900', 'bg-gray-50', 'bg-gray-300', 'text-gray-900', /^bg-/, /^hover:bg-/, /^text-/, /^hover:text-/],
   },
 }

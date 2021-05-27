@@ -25,7 +25,7 @@ export const Header: VFC<Props> = (props) => {
   return (
     <header className="flex h-10 mb-2 p-2 bg-gray-700 text-white">
       <p>{title}</p>
-      {isLogin ? (
+      {/* {isLogin ? (
         <div className=" ml-auto">
           <button className="flex focus:outline-none" onClick={onClickLogout}>
             ログアウト
@@ -49,7 +49,7 @@ export const Header: VFC<Props> = (props) => {
             </a>
           </Link>
         </div>
-      )}
+      )} */}
     </header>
   );
 };

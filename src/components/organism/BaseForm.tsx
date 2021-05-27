@@ -13,7 +13,6 @@ type Props = {
 
 export const BaseForm: VFC<Props> = ({ onSubmit, buttonText, inputList }) => {
   return (
-    // <div className="max-w-lg bg-gray-700 shadow-2xl rounded-lg mx-auto text-center py-12 mt-4">
     <div className="min-h-screen bg-gray-700 shadow-2xl mx-auto text-center py-12">
       <h1 className="text-gray-200 text-center font-extrabold -mt-3 text-3xl">
         国王のみに許された管理者権限

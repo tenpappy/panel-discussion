@@ -31,7 +31,7 @@ export const Header: VFC<Props> = (props) => {
             ログアウト
             <FontAwesomeIcon
               icon={faSignOutAlt}
-              className="cursor-pointer m-1 w-4"
+              // className="cursor-pointer m-1 w-4"
             />
           </button>
         </div>
@@ -44,7 +44,7 @@ export const Header: VFC<Props> = (props) => {
             <a>
               <FontAwesomeIcon
                 icon={faSignInAlt}
-                className="cursor-pointer m-1 w-4"
+                // className="cursor-pointer m-1 w-4"
               />
             </a>
           </Link>

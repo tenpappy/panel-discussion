@@ -29,10 +29,10 @@ export const Header: VFC<Props> = (props) => {
         <div className=" ml-auto">
           <button className="flex focus:outline-none" onClick={onClickLogout}>
             ログアウト
-            <FontAwesomeIcon
+            {/* <FontAwesomeIcon
               icon={faSignOutAlt}
               className="cursor-pointer m-1 w-4"
-            />
+            /> */}
           </button>
         </div>
       ) : (
@@ -42,10 +42,10 @@ export const Header: VFC<Props> = (props) => {
           </Link>
           <Link href="/Login">
             <a>
-              <FontAwesomeIcon
+              {/* <FontAwesomeIcon
                 icon={faSignInAlt}
                 className="cursor-pointer m-1 w-4"
-              />
+              /> */}
             </a>
           </Link>
         </div>

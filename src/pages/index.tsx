@@ -175,7 +175,7 @@ export default function Home() {
   console.log("★★★レンダリング");
 
   return (
-    <div className="bg-green-300">
+    <div>
       <HeadInfo
         title="パネルディスカッション"
         content="パネルディスカッション用のツールです"

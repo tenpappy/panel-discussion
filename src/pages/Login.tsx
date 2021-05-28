@@ -40,11 +40,11 @@ export default function Login() {
 
   return (
     <div>
-      <BaseForm
+      {/* <BaseForm
         onSubmit={handleSubmit(handleSignin)}
         inputList={inputList}
         buttonText="ログイン"
-      />
+      /> */}
     </div>
   );
 }

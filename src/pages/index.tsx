@@ -185,7 +185,6 @@ export default function Home() {
         isLogin={isLogin}
         setIsLogin={setIsLogin}
       />
-      {isLogin && <div>ログインしてます</div>}
       <main className="min-h-screen">
         {/* 投稿 */}
         <Entry
@@ -206,6 +205,7 @@ export default function Home() {
                 bgColor="yellow"
                 isDeletable={false}
                 name="NOW"
+                isLogin={isLogin}
               />
             )
         )}
@@ -226,6 +226,7 @@ export default function Home() {
                 isDeletable={true}
                 name="WAIT"
                 onClickDel={onClickDel}
+                isLogin={isLogin}
               />
             )
         )}
@@ -243,6 +244,7 @@ export default function Home() {
                 isDeletable={true}
                 name="DONE"
                 onClickDel={onClickDel}
+                isLogin={isLogin}
               />
             )
         )}

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { BaseForm } from "../components/organism/BaseForm";
 import { supabase } from "../util/supabase";
 import Router from "next/router";
+import { useState } from "react";
 
 type IForm = {
   email: string;
@@ -11,15 +12,14 @@ type IForm = {
 
 export default function Login() {
   const { register, handleSubmit } = useForm<IForm>();
+  const [errorMessage, setErrorMessage] = useState("");
   const handleSignin = async ({ email, password }: IForm) => {
     const { error } = await supabase.auth.signIn({
       email,
       password,
     });
     if (error) {
-      alert(error);
-      console.log(error.message);
-      console.log(error);
+      setErrorMessage(error.message);
     } else {
       Router.push("/");
     }
@@ -44,6 +44,7 @@ export default function Login() {
         onSubmit={handleSubmit(handleSignin)}
         inputList={inputList}
         buttonText="ログイン"
+        errorMessage={errorMessage}
       />
     </div>
   );

@@ -181,7 +181,7 @@ export default function Home() {
         content="パネルディスカッション用のツールです"
       />
       <Header
-        title="Panel Discussion　しまぶー×じゃけぇ"
+        title="Panel Discussion"
         isLogin={isLogin}
         setIsLogin={setIsLogin}
       />

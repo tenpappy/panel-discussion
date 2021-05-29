@@ -23,19 +23,20 @@ export const BaseForm: VFC<Props> = ({
 }) => {
   return (
     <div className="min-h-screen bg-gray-700 shadow-2xl py-5">
-      <Link href="/">
-        <a>
-          <FontAwesomeIcon
-            icon={faChevronCircleLeft}
-            color="white"
-            className="cursor-pointer ml-3 mr-1 "
-            size="1x"
-          />
-        </a>
-      </Link>
-      <Link href="/">
-        <a className="text-white text-left mt-1">戻る</a>
-      </Link>
+      <div className="flex ml-3">
+        <Link href="/">
+          <a>
+            <FontAwesomeIcon
+              icon={faChevronCircleLeft}
+              color="white"
+              className="cursor-pointer mr-1 mt-1 w-4"
+            />
+          </a>
+        </Link>
+        <Link href="/">
+          <a className="text-white text-left">戻る</a>
+        </Link>
+      </div>
       <div className="mx-auto text-center mt-9">
         <h1 className="text-gray-200 text-center font-extrabold -mt-3 text-2xl">
           国王のみに許された管理者権限

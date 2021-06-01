@@ -5,14 +5,14 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   future: { webpack5: false },
   theme: {
-    // colors: {
-    //   indigo: colors.indigo,
-    //   yellow: colors.yellow,
-    //   gray: colors.gray,
-    //   white: colors.white,
-    //   green: colors.green,
-    //   purple: colors.purple,
-    // },
+    colors: {
+      indigo: colors.indigo,
+      yellow: colors.yellow,
+      gray: colors.gray,
+      white: colors.white,
+      green: colors.green,
+      purple: colors.purple,
+    },
     extend: {},
   },
   variants: {

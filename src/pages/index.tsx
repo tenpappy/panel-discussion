@@ -196,6 +196,16 @@ export default function Home() {
         <div className="bg-yellow-700">背景色テスト</div>
         <div className="bg-yellow-800">背景色テスト</div>
         <div className="bg-yellow-900">背景色テスト</div>
+        <div className="bg-indigo-50">背景色テスト</div>
+        <div className="bg-indigo-100">背景色テスト</div>
+        <div className="bg-indigo-200">背景色テスト</div>
+        <div className="bg-indigo-300">背景色テスト</div>
+        <div className="bg-indigo-400">背景色テスト</div>
+        <div className="bg-indigo-500">背景色テスト</div>
+        <div className="bg-indigo-600">背景色テスト</div>
+        <div className="bg-indigo-700">背景色テスト</div>
+        <div className="bg-indigo-800">背景色テスト</div>
+        <div className="bg-indigo-900">背景色テスト</div>
         <div className=" text-green-50 font-black">文字色テスト</div>
         <div className=" text-green-100 font-black">文字色テスト</div>
         <div className=" text-green-200 font-black">文字色テスト</div>

@@ -9,7 +9,7 @@ type Props = {
 
 export const StatusButton: VFC<Props> = (props) => {
   const { onClick, id, bgColor, name } = props;
-  const bgColor200 = `bg-${bgColor}-100`;
+  const bgColor200 = `bg-${bgColor}-200`;
   const bgColorHover = `hover:bg-${bgColor}-300`;
   const bgColorText = `text-${bgColor}-900`;
   return (

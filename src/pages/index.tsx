@@ -186,7 +186,7 @@ export default function Home() {
         setIsLogin={setIsLogin}
       />
       <main className="min-h-screen">
-        <div className="bg-yellow-50">背景色テスト</div>
+        <div className="bg-yellow-50">1背景色テスト</div>
         <div className="bg-yellow-100">背景色テスト</div>
         <div className="bg-yellow-200">背景色テスト</div>
         <div className="bg-yellow-300">背景色テスト</div>

@@ -3,16 +3,16 @@ const colors = require("tailwindcss/colors");
 module.exports = {
   purge: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
-  future: { webpack5: false },
+  // future: { webpack5: false },
   theme: {
-    colors: {
-      indigo: colors.indigo,
-      yellow: colors.yellow,
-      gray: colors.gray,
-      white: colors.white,
-      green: colors.green,
-      purple: colors.purple,
-    },
+    // colors: {
+    //   indigo: colors.indigo,
+    //   yellow: colors.yellow,
+    //   gray: colors.gray,
+    //   white: colors.white,
+    //   green: colors.green,
+    //   purple: colors.purple,
+    // },
     extend: {},
   },
   variants: {

@@ -243,6 +243,9 @@ export default function Home() {
         {/* 点線 */}
         <div className="border-dashed border-t-4 my-2 mx-3"></div>
 
+        <div className="bg-gray-50 h-52  ">test</div>
+        <div className="bg-purple-50 h-52  ">test</div>
+
         {/* WAIT */}
         {Object.keys(questions).map(
           (index) =>
@@ -262,6 +265,8 @@ export default function Home() {
         )}
 
         <div className="bg-gray-50 h-52  ">test</div>
+        <div className="bg-purple-50 h-52  ">test</div>
+
         {/* DONE */}
         {Object.keys(questions).map(
           (index) =>

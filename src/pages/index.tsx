@@ -186,7 +186,7 @@ export default function Home() {
         setIsLogin={setIsLogin}
       />
       <main className="min-h-screen">
-        <div className="bg-yellow-50">1背景色テスト</div>
+        <div className="bg-yellow-50">2背景色テスト</div>
         <div className="bg-yellow-100">背景色テスト</div>
         <div className="bg-yellow-200">背景色テスト</div>
         <div className="bg-yellow-300">背景色テスト</div>
@@ -261,6 +261,7 @@ export default function Home() {
             )
         )}
 
+        <div className="bg-gray-50 h-52  ">test</div>
         {/* DONE */}
         {Object.keys(questions).map(
           (index) =>

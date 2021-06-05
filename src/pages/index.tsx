@@ -186,36 +186,6 @@ export default function Home() {
         setIsLogin={setIsLogin}
       />
       <main className="min-h-screen">
-        <div className="bg-yellow-50">3背景色テスト</div>
-        <div className="bg-yellow-100">背景色テスト</div>
-        <div className="bg-yellow-200">背景色テスト</div>
-        <div className="bg-yellow-300">背景色テスト</div>
-        <div className="bg-yellow-400">背景色テスト</div>
-        <div className="bg-yellow-500">背景色テスト</div>
-        <div className="bg-yellow-600">背景色テスト</div>
-        <div className="bg-yellow-700">背景色テスト</div>
-        <div className="bg-yellow-800">背景色テスト</div>
-        <div className="bg-yellow-900">背景色テスト</div>
-        <div className="bg-indigo-50">背景色テスト</div>
-        <div className="bg-indigo-100">背景色テスト</div>
-        <div className="bg-indigo-200">背景色テスト</div>
-        <div className="bg-indigo-300">背景色テスト</div>
-        <div className="bg-indigo-400">背景色テスト</div>
-        <div className="bg-indigo-500">背景色テスト</div>
-        <div className="bg-indigo-600">背景色テスト</div>
-        <div className="bg-indigo-700">背景色テスト</div>
-        <div className="bg-indigo-800">背景色テスト</div>
-        <div className="bg-indigo-900">背景色テスト</div>
-        <div className=" text-green-50 font-black">文字色テスト</div>
-        <div className=" text-green-100 font-black">文字色テスト</div>
-        <div className=" text-green-200 font-black">文字色テスト</div>
-        <div className=" text-green-300 font-black">文字色テスト</div>
-        <div className=" text-green-400 font-black">文字色テスト</div>
-        <div className=" text-green-500 font-black">文字色テスト</div>
-        <div className=" text-green-600 font-black">文字色テスト</div>
-        <div className=" text-green-700 font-black">文字色テスト</div>
-        <div className=" text-green-800 font-black">文字色テスト</div>
-        <div className=" text-green-900 font-black">文字色テスト</div>
         {/* 投稿 */}
         <Entry
           value={inputQuestion}
@@ -242,10 +212,6 @@ export default function Home() {
 
         {/* 点線 */}
         <div className="border-dashed border-t-4 my-2 mx-3"></div>
-
-        <div className="bg-gray-50 h-52  ">test</div>
-        <div className="bg-purple-50 h-52  ">test</div>
-
         {/* WAIT */}
         {Object.keys(questions).map(
           (index) =>
@@ -263,10 +229,6 @@ export default function Home() {
               />
             )
         )}
-
-        <div className="bg-gray-50 h-52  ">test</div>
-        <div className="bg-purple-50 h-52  ">test</div>
-
         {/* DONE */}
         {Object.keys(questions).map(
           (index) =>
